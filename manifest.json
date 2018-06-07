@@ -3,6 +3,9 @@
   "name": "Drone CI",
   "version": "1.0.1",
   "description": "Displays latest deployments from Drone CI",
+  "dependencies": {
+    "YouTrack": ">=2018.1" 
+  },
   "author": "Andrew Anguiano <aanguiano@symplexity.com>",
   "homeUrl": "https://github.com/andrew-anguiano/youtrack-drone-widget",
   "iconUrl": "icon.png",
