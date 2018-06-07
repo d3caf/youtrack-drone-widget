@@ -8,10 +8,10 @@ import Group from '@jetbrains/ring-ui/components/group/group';
 import Panel from '@jetbrains/ring-ui/components/panel/panel';
 import Button from '@jetbrains/ring-ui/components/button/button';
 import ContentLayout from '@jetbrains/ring-ui/components/content-layout/content-layout';
-import { CheckmarkIcon, CloseIcon, BranchesIcon } from '@jetbrains/ring-ui/components/icon';
+import { CheckmarkIcon, CloseIcon, BranchesIcon, HourglassIcon } from '@jetbrains/ring-ui/components/icon';
 
 import _orderBy from 'lodash/orderBy';
-import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
+import { distanceInWordsToNow, parse } from 'date-fns';
 
 import 'file-loader?name=[name].[ext]!../../manifest.json'; // eslint-disable-line import/no-unresolved
 import styles from './app.css';
@@ -91,7 +91,7 @@ class Widget extends Component {
   };
 
   prepareData = data => {
-    const sorted = _orderBy(data, i => i.finished_at || '', ['desc']);
+    const sorted = _orderBy(data, i => i.started_at || '', ['desc']);
 
     this.setState({deploys: sorted});
   }
@@ -152,13 +152,16 @@ class Widget extends Component {
              {this.state.deploys.map((deploy, key) => (
               <li key={key}>
                 <div className="icon" style={{marginRight: '1rem'}}>
-                  {deploy.status === 'success' ? (
+                  {deploy.status === 'success' && (
                     <CheckmarkIcon color="green" size={CheckmarkIcon.Size.Size14} />
-                  ) : (<CloseIcon color="red" size={CloseIcon.Size.Size14} />)}
+                  )} 
+                  
+                  {deploy.status === 'running' && (<HourglassIcon color="green" size={HourglassIcon.Size.Size14} />)}
+                  {deploy.status !== 'running' && deploy.status !== 'success' && (<CloseIcon color="red" size={CloseIcon.Size.Size14} />)}
                 </div>
                 <div className="info" style={{flex: '1 1 auto'}}>
                   <div className="row">
-                    <span className={styles.title} style={{flex: 1}}><a target="_blank" href={deploy.number ? `${this.state.droneUrl}/${deploy.full_name}/${deploy.number}` : null}>{deploy.name}</a> {deploy.finished_at && (<small style={{color: "#b2b2b2"}}>{distanceInWordsToNow(deploy.finished_at, {addSuffix: true, includeSeconds: true})}</small>)}</span>
+                    <span className={styles.title} style={{flex: 1}}><a target="_blank" href={deploy.number ? `${this.state.droneUrl}/${deploy.full_name}/${deploy.number}` : null}>{deploy.name}</a> {deploy.started_at && (<small style={{color: "#b2b2b2"}}>{distanceInWordsToNow(parse(deploy.started_at * 1000), {addSuffix: true, includeSeconds: true})}</small>)}</span>
                     <span className="hash" style={{flex: '0 1 auto'}}>
                       {deploy.commit ? <span><BranchesIcon color="#f1f1f1" size={BranchesIcon.Size.Size12} /> <a href={`${deploy.remote.slice(0, -4)}/tree/${deploy.branch}`} target="_blank">{deploy.branch}</a> - {deploy.commit.slice(0,6)}</span> : null}
                     </span>
