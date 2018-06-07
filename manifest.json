@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "description": "Displays latest deployments from Drone CI",
   "author": "Andrew Anguiano <aanguiano@symplexity.com>",
+  "homeUrl": "https://github.com/andrew-anguiano/youtrack-drone-widget",
   "iconUrl": "icon.png",
   "view": {
     "fadeOut": true
