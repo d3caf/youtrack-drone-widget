@@ -1,7 +1,7 @@
 {
   "key": "you-track-drone",
   "name": "Drone CI",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Displays latest deployments from Drone CI",
   "author": "Andrew Anguiano <aanguiano@symplexity.com>",
   "homeUrl": "https://github.com/andrew-anguiano/youtrack-drone-widget",
