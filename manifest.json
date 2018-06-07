@@ -1,0 +1,18 @@
+{
+  "key": "you-track-drone",
+  "name": "Drone CI",
+  "version": "1.0.0",
+  "description": "Displays latest deployments from Drone CI",
+  "author": "Andrew Anguiano <aanguiano@symplexity.com>",
+  "iconUrl": "icon.png",
+  "view": {
+    "fadeOut": true
+  },
+  "capabilities": {
+    "popups": true
+  },
+  "products": {
+    "Hub": "2018.1",
+    "YouTrack": "2018.1"
+  }
+}
